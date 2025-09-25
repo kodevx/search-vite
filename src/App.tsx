@@ -13,8 +13,13 @@ const App: FC = () => {
   return (
     <div>
       <div>
-        <input type='text' placeholder={'Searching is easier'} value={searchValue} onChange={handleChange} />
-        <button>Clear</button>
+        <input 
+          type={'text'}
+          placeholder={'Searching is easier'} 
+          value={searchValue} 
+          onChange={(e) => handleChange(e.target.value)} 
+        />
+        <button className={'font-alan p-10 border-2 border-amber-700'}>Clear</button>
       </div>
       <div>
         {isOpenSearchResults && (
@@ -26,4 +31,4 @@ const App: FC = () => {
   )
 }
 
-export default App
+export default App;
