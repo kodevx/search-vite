@@ -6,25 +6,29 @@ interface UserType {
     activeStatus: string | number
 }
 
-interface StateType {
+interface UserStateType {
     users: UserType[],
-    addUser: () => void,
-    removeUser: () => void
+    addUsers: (newUser: UserType) => void,
+    removeUsers: (id: number) => void
 }
 
-const userStore = create((set) => ({
-    users: [],
-    addUsers: (newUser: UserType) => {
-        set((state: StateType) => (
-            [{ ...state.users, newUser }]
-        ))
+const userStore = create<UserStateType>()((set, get) => ({
+    users: [
+        { id: 1, name: 'Tanny', activeStatus: 'Active 1w ago' },
+        { id: 2, name: 'Freddy', activeStatus: 'Active 30m ago' },
+        { id: 3, name: 'Femy', activeStatus: 'Active 2hr ago' }
+    ],
+    addUsers: (newUser) => {
+        set((state) => ({ 
+            users: [...state.users, newUser] 
+        }));
     },
-    removeUsers: (id: number) => {
-        set((state: StateType)  => {
-            const refinedUsers = state.users.filter(user => user.id !== id);
-            return [...refinedUsers];
-
-        })
+    removeUsers: (id) => {
+        const users = get().users;
+        const refinedUsers = users.filter((user: UserType) => user.id !== id);
+        set(() => ({
+             users: [...refinedUsers] 
+        }))
     }
 }));
 
