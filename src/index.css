@@ -3,10 +3,10 @@
 
 @font-face {
   font-family: "Gotham";
-  src: url('/public/Fonts/Gotham/Gotham-Bold-webfont.woff2')
+  src: url('Fonts/Gotham/Gotham-Bold-webfont.woff2')
 }
 
 @font-face {
   font-family: "AlanSans";
-  src: url('/public/Fonts/AlanSans/AlanSans-Regular.ttf')
+  src: url('Fonts/AlanSans/AlanSans-Regular.ttf')
 }
