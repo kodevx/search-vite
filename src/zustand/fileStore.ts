@@ -1,5 +1,5 @@
 import { create } from "zustand";
-interface FileType {
+export interface FileType {
     id: number
     name: string
     extension: string
@@ -26,8 +26,9 @@ const fileStore = create<FileStateType>()((set, get) => ({
         )
     },
     removeFile: (name: string) => {
-        set((state)  => {
-            const refinedFiles = state.files.filter(file => file.name !== name);
+        const refinedFiles = get().files.filter(file => file.name !== name);
+        
+        set(()  => {
             return ({
                 files: [...refinedFiles]
             });
