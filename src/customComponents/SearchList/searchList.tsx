@@ -8,20 +8,28 @@ import useSearchList from '../../customHook/SearchList/useSearchList';
 const SearchList: React.FC = () => {
 
     const { 
+        isPending,
         searchValue,
+        searchResults,
         handleSearch,
         handleClearValue
     } = useSearchList();
 
+    console.log("searchResults: ",searchResults);
+
     return (
-        <div className='font-alan flex justify-center items center h-screen w-auto border-2 border-green-400'>
-            <div className='flex justify-center items-center border-2 border-yellow-400'>
+        <div className='font-alan flex justify-center items center h-screen w-auto bg-gray-200 p-16 drop-shadow-2xl'>
+            <div className='w-xl bg-white rounded-2xl'>
                 <SearchBar 
                     value={searchValue} 
-                    handleChange={handleSearch} 
+                    handleSearch={handleSearch} 
                     handleClearValue={handleClearValue}
                 />
-                <SearchResults />
+                <SearchResults 
+                    value={searchValue} 
+                    isPending={isPending} 
+                    results={searchResults}
+                />
             </div>
         </div>
     )

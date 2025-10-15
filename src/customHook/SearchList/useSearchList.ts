@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useTransition } from 'react';
-import debounce from "../../util/debounce";
+// import debounce from "../../util/debounce";
 
 import useUsers from '../../zustand/userStore';
 import useFiles from '../../zustand/fileStore';
@@ -12,8 +12,8 @@ type SearchResultsType = FileType | UserType;
 const useSearchList = () => {
 
     const [searchValue, setSearchValue] = useState<string>('');
+    const [isPending, setIsPending] = useState<boolean>(false);
     const [searchResults, setSearchResults] = useState<SearchResultsType[]>([]);
-    const [isPending, startTransition] = useTransition();
 
     const { users } = useUsers();
     const { files } = useFiles();
@@ -25,8 +25,9 @@ const useSearchList = () => {
     const handleResults = useCallback(
         (value: string) => {
             try {
-                const fileResults = files.filter(file => file.name.includes(value));
-                const usersResults = users.filter(user => user.name.includes(value));
+                console.log('handleResults INVOKED: ',value);
+                const fileResults = files.filter(file => file.name.toLowerCase().includes(value.toLowerCase()));
+                const usersResults = users.filter(user => user.name.toLowerCase().includes(value.toLowerCase()));
 
                 setSearchResults([...fileResults, ...usersResults]);
 
@@ -38,18 +39,24 @@ const useSearchList = () => {
     );
 
     const handleSearch = useCallback(
-        (value: string) => {
-            setSearchValue(value);
-            startTransition(() => {
-                debounce(handleResults, 3000);
-            })
+        async (value: string) => {
+            try {
+                setIsPending(true);
+                setSearchValue(value);
+                handleResults(value);
+            } catch(err) {
+                console.log("handle Search func Error: ",err);
+            } finally {
+                setTimeout(() => setIsPending(false), 3000);
+            }
         },
-        [setSearchValue, handleResults]
+        [setSearchValue, handleResults, setIsPending]
     );
 
     const handleClearValue = useCallback(() => {
         setSearchValue('');
     }, [setSearchValue]);
+
 
     return {
         searchValue,

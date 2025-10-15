@@ -1,25 +1,26 @@
 import React, { useEffect } from 'react';
-
 interface SearchBarProps {
     value: string
-    handleChange: (e: string) => void
+    handleSearch: (e: string) => void
     handleClearValue: () => void
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ value, handleChange, handleClearValue }) => {
-
-  useEffect(() => console.log("SearchBar rendered"))
+const SearchBar: React.FC<SearchBarProps> = ({ value, handleSearch, handleClearValue }) => {
 
     return (
-        <div className='border-2 border-blue-400'>
-          <input 
-            type={'text'}
-            placeholder={'Searching is easier'} 
-            value={value} 
-            onChange={(e) => handleChange(e.target.value)} 
-          />
+        <div className='m-5 w-auto flex justify-between'>
+          <div className='flex flex-row items-center'>
+            <img src={'../../public/Icons/searchIcon.png'} className={'h-8 w-8 mr-2'} alt={'search-icon'} />
+            <input 
+              type={'text'}
+              value={value} 
+              className={'text-2xl text-black outline-none'}
+              placeholder={'Searching is easier'} 
+              onChange={(e) => handleSearch(e.target.value)} 
+            />
+          </div>
           <button 
-            className={'m-2 p-10 text-lg border-2 border-amber-700'} 
+            className={'text-md underline cursor-pointer'} 
             onClick={handleClearValue}
           >
             Clear
