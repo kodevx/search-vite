@@ -1,10 +1,15 @@
 // Debounce function with callback function and timeout passed as parameters
-export default function debounce (callback: () => void, wait: number): () => void {
+export default function debounce (
+    callback: (value: string) => void,
+    value: string,
+    wait: number
+) {
     let timeoutId: number | undefined = undefined;
-    return (...args) => {
+    return () => {
         window.clearTimeout(timeoutId);
-        timeoutId = window.setTimeout(() => {
-            callback(...args)
-        }, wait);
+        timeoutId = window.setTimeout(
+            () => callback(value), 
+            wait
+        );
     }
 }
