@@ -34,7 +34,7 @@ const SearchResults: FC<SearchResultsProps> = (props) => {
         ))
 
     return (
-        <div className='m-5'>
+        <div className='m-5 overflow-auto'>
             {resultsList && 
              resultsList.length ? (
                 resultsList

@@ -22,9 +22,9 @@ const ListShimmer = (props) => {
     }
 
     return (
-        <>
+        <div className='m-5'>
             {shimmerElements}
-        </>
+        </div>
     )
 }
 
