@@ -9,6 +9,8 @@ import type { UserType } from '../../zustand/userStore';
 
 type SearchResultsType = FileType | UserType;
 
+const EMPTY_VALUE = 'empty_string';
+
 const useSearchList = () => {
 
     const [searchValue, setSearchValue] = useState<string>('');
@@ -25,6 +27,9 @@ const useSearchList = () => {
     const handleResults = useCallback(
         (value: string) => {
             try {
+                if(value === '') {
+                    throw EMPTY_VALUE;
+                }
                 console.log('handleResults INVOKED: ',value);
                 const fileResults = files.filter(file => file.name.toLowerCase().includes(value.toLowerCase()));
                 const usersResults = users.filter(user => user.name.toLowerCase().includes(value.toLowerCase()));
@@ -32,7 +37,11 @@ const useSearchList = () => {
                 setSearchResults([...fileResults, ...usersResults]);
 
             } catch(error) {
-                console.log("Error in search results logic: ",error);
+                if(EMPTY_VALUE) {
+                    setSearchResults([]);
+                } else {
+                    console.log("Error in search results logic: ",error);
+                }
             }
         }, 
         []
@@ -47,7 +56,7 @@ const useSearchList = () => {
             } catch(err) {
                 console.log("handle Search func Error: ",err);
             } finally {
-                setTimeout(() => setIsPending(false), 3000);
+                setTimeout(() => setIsPending(false), 1000);
             }
         },
         [setSearchValue, handleResults, setIsPending]
