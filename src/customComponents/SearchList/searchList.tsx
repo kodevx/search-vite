@@ -2,16 +2,20 @@ import React from 'react';
 
 import SearchBar from '../../components/SearchBar';
 import SearchResults from './SearchResults';
+import Tabs from '../../components/Tabs';
 
 import useSearchList from '../../customHook/SearchList/useSearchList';
 
 const SearchList: React.FC = () => {
 
     const { 
+        tabsData,
+        filterType,
         isPending,
         searchValue,
         searchResults,
         handleSearch,
+        handleResults,
         handleClearValue
     } = useSearchList();
 
@@ -24,6 +28,12 @@ const SearchList: React.FC = () => {
                     value={searchValue} 
                     handleSearch={handleSearch} 
                     handleClearValue={handleClearValue}
+                />
+                <Tabs
+                    currentTab={filterType}
+                    tabsData={tabsData} 
+                    value={searchValue} 
+                    handleOnChange={handleResults} 
                 />
                 <SearchResults 
                     value={searchValue} 
