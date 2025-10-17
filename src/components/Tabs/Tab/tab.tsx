@@ -36,14 +36,20 @@ const Tab: React.FC<TabProps> = (props) => {
     } = props;
 
     return (
-        <div key={id}> 
-            <button onClick={() => handleOnChange(value, name)}>
-                <div>
+        <div key={id} className={`px-2 pb-1 ${isActiveTab ? 'border-b-black border-b-3' : ''}`}> 
+            <button onClick={() => handleOnChange(value, name)} className='cursor-pointer'>
+                <div className='flex flex-row items-center'>
                     {name !== FilterType.ALL ? ( 
-                        <img src={getIcon(name)} alt={`${name}-icon`} />
+                        <img src={getIcon(name)} className={'h-5 w-5'} alt={`${name}-icon`} />
                     ) : null}
-                    {name}  
-                    <span>{count}</span>        
+                    <div className='flex flex-row items-center ml-2'>
+                        <div className='text-md'>{name}</div>  
+                        <div>
+                            <div className='self-center bg-gray-100 text-gray-400 text-sm rounded-md ml-2 px-2 py-0 mt-0.5'>
+                                {count}
+                            </div>
+                        </div>   
+                    </div>     
                 </div>
             </button>
         </div>

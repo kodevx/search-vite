@@ -28,8 +28,10 @@ const Tabs: React.FC<TabsProps> = (props) => {
         ));
 
     return (
-        <div>
-            {tabElements}
+        <div className='border-b-gray-200 border-b-2 outline-0'>
+            <div className='ml-7 flex flex-row'>
+                {tabElements}
+            </div>
         </div>
     )
 }
