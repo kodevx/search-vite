@@ -46,6 +46,8 @@ const useSearchList = () => {
 
                 console.log('handleResults INVOKED: ',value);
 
+                setFilterType(filterType);
+
                 if(filterType === FilterType.PEOPLE) {
                     const usersResults = users.filter(user => user.name.toLowerCase().includes(value.toLowerCase()));
                     setSearchResults([...usersResults]);
@@ -93,7 +95,9 @@ const useSearchList = () => {
 
     const handleClearValue = useCallback(() => {
         setSearchValue('');
-    }, [setSearchValue]);
+        setTabsData([]);
+        setSearchResults([]);
+    }, [setSearchValue, setTabsData, setSearchResults]);
 
     return {
         tabsData,

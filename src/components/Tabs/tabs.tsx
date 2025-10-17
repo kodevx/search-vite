@@ -3,7 +3,7 @@ import { FilterType, type TabsData } from '../../customHook/SearchList/useSearch
 import Tab from './Tab';
 interface TabsProps {
     value: string
-    filterType: FilterType
+    currentTab: FilterType
     tabsData: TabsData[],
     handleOnChange: () => void
 }   
@@ -12,7 +12,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
 
     const { 
         value,
-        filterType,
+        currentTab,
         tabsData, 
         handleOnChange 
     } = props;
@@ -21,7 +21,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
         tabsData.map((tab) => (
             <Tab 
                 value={value} 
-                isActiveTab={!!(filterType === tab.name)}
+                isActiveTab={!!(currentTab === tab.name)}
                 handleOnChange={handleOnChange} 
                 {...tab} 
             />
